@@ -1,0 +1,28 @@
+{%	load staticfiles %}
+<html>
+	<head>
+		<title>
+			My Movies
+		</title>
+		<link	rel="stylesheet"	href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link	rel="stylesheet"	href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link	rel="stylesheet"	href="{% static 'css/simpleapp.css'	%}">
+<link	href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext"	rel="stylesheet"	type="text/css">
+	
+	</head>
+	<body>
+		{% if user.is_authenticated %}
+		<p class="top-menu">Hello {{ user.username }}<small>(<a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a>)</small></p>
+			{% if request.user.is_superuser %}
+			<h2>Admin functions are available for {{user.username}}</h2>
+			<a	href="{%	url	'simpleapp.views.movie_new'	%}"	class="top-menu"><span	class="glyphicon	glyphicon-plus">Add</span></a>
+			{% endif %}
+            {% else %}
+            <a href="{% url 'django.contrib.auth.views.login' %}" class="top-menu"><span class="glyphicon glyphicon-lock">Login</span></a>
+            {% endif %}
+		<h1><a href="/">Movies</a></h1>
+		<br><br><br>
+{% block content %}
+{% endblock %}
+<body>
+</html>

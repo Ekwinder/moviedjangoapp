@@ -1,0 +1,11 @@
+{% extends 'simpleapp/base.html' %}
+{% block content %}
+{% if request.user.is_superuser %}
+	<a	class="btn	btn-default"	href="{%	url	'movie_edit'	pk=movie.pk	%}"><span	class="glyphicon	glyphicon-pencil"></span>edit</a>
+	<a	class="btn	btn-default"	href="{%	url	'movie_remove'	pk=movie.pk	%}"><span	class="glyphicon	glyphicon-remove"></span></a>
+{% endif %}
+<h1>{{movie.title}}</h1>
+<p>{{movie.desc}}</p>
+<p> My rating - {{movie.rating}}</p>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'simpleapp/base.html' %}
+{% block content %}
+{% for movie in movies %}
+<h1><a href="{% url 'simpleapp.views.movie_detail' pk=movie.pk %}">{{movie.title}}</a></h1>
+<p> My rating - {{movie.rating}}</p>
+<br>
+<br>
+{% endfor %}
+{% endblock %}

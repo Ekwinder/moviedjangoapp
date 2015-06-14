@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'simpleapp'
+    'simpleapp',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -116,3 +117,5 @@ try:
 
 except ImportError:
     pass
+
+LOGIN_REDIRECT_URL  =   '/'
