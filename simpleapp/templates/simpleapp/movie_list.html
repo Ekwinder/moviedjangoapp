@@ -1,6 +1,10 @@
 {% extends 'simpleapp/base.html' %}
 
+
 {% block content %}
+<div class="content container">
+    <div class="row">
+        <div class="col-md-8">
       <form id="searchform" action="{% url 'simpleapp.views.movie_search' %}" method="POST" accept-charset="utf-8">
       	{% csrf_token %}
       <button class="searchbutton" type="submit">Search
@@ -9,9 +13,17 @@
       <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
     </form>
 {% for movie in movies %}
+<div class="post">
+                   
 <h1><a href="{% url 'simpleapp.views.movie_detail' pk=movie.pk %}">{{movie.title}}</a></h1>
+ <div class="date">
 <p> My rating - {{movie.rating}}</p>
 <br>
 <br>
 {% endfor %}
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

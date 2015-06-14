@@ -12,7 +12,8 @@
 	</head>
 	<body>
 		{% if user.is_authenticated %}
-		<p class="top-menu">Hello {{ user.username }}<small>(<a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a>)</small></p>
+		<p class="top-menu">Hello {{ user.username }}<small>(<a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a>)</small></p><br><br><br>
+		<p><a	href="{%	url	'api.views.movie_list'	%}"	class="top-menu"><span	class="glyphicon	glyphicon-th">API</span></a></p>
 			{% if request.user.is_superuser %}
 			<h2>Admin functions are available for {{user.username}}</h2>
 			<a	href="{%	url	'simpleapp.views.movie_new'	%}"	class="top-menu"><span	class="glyphicon	glyphicon-plus">Add</span></a>

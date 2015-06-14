@@ -1,0 +1,92 @@
+The simpleapp application in the myapp project is a web app that lets users see ratings and description of various movies.
+The api application creates api of the simpleapp models.
+
+For the Movie model in simpleapp, we have created a corresponding Serializer in api app. It lists out the fields that need to 
+be serialized.
+
+The superuser to access the admin functions is
+username - ekwinder
+password - 123
+
+other created users -
+username - user1
+password -123
+
+The API can only be accessed by user authentication. 
+Add, Edit and Delete functions can only be accessed by Admin.
+Search function can be accessed by all authenticated users.
+
+Various API Links-
+/api/movie -movie list
+/api/movie/[id value] - description, edit, delete 
+/api/movie/add/ - add new movie
+api/movie/search/?title=[search query] - search
+
+
+The API has been tested in the browser and by using Curl.
+
+Here are the tests performed.
+
+Trying to access the API without authorization:
+
+ekwinder@STARGATE:~$ curl -X GET http://127.0.0.1:9000/api/movie/ 
+{"detail":"Authentication credentials were not provided."}
+Accessing with normal user:
+
+url -X GET http://127.0.0.1:9000/api/movie/ -u eku:123
+[{"id":1,"title":"Titanic","desc":"Sadly, it sunk.","rating":4},{"id":2,"title":"Clash of the Titans","desc":"Gods have mercy!","rating":3},{"id":3,"title":"Good Will Hunting","desc":"Will is a good hunter.","rating":4},{"id":4,"title":"Crash","desc":"That was hard.","rating":3}]
+
+
+Trying to add as normal user:
+
+curl -X POST http://127.0.0.1:9000/api/movie/add/ -d "title=New movie&desc=new description&rating=3" -u eku:123
+{"detail":"You do not have permission to perform this action."}
+
+
+Adding as admin:
+curl -X POST http://127.0.0.1:9000/api/movie/add/ -d "title=New movie&desc=new description&rating=3" -u ekwinder:123
+{"id":7,"title":"New movie","desc":"new description","rating":3}
+
+
+Searching-
+
+ekwinder@STARGATE:~$ curl -X GET http://127.0.0.1:9000/api/movie/search/?title=cl -u eku:123
+{"count":1,"next":null,"previous":null,"results":[{"id":2,"title":"Clash of the Titans","desc":"Gods have mercy!","rating":3}]}
+
+
+
+Updating as normal user-
+
+ekwinder@STARGATE:~$ curl -X PUT http://127.0.0.1:9000/api/movie/7 -d "title=old movie&desc=new description&rating=5" -u eku:123
+{"detail":"You do not have permission to perform this action."}
+
+
+Updating as admin-
+
+ekwinder@STARGATE:~$ curl -X PUT http://127.0.0.1:9000/api/movie/7 -d "title=old movie&desc=new description&rating=5" -u ekwinder:123
+{"id":7,"title":"old movie","desc":"new description","rating":5}
+
+
+Deleting as normal user-
+
+ekwinder@STARGATE:~$ curl -X DELETE http://127.0.0.1:9000/api/movie/6 -u eku:123 
+{"detail":"You do not have permission to perform this action."}
+
+
+Deleting as admin-
+ekwinder@STARGATE:~$ curl -X DELETE http://127.0.0.1:9000/api/movie/6 -u ekwinder:123
+
+id 6 is deleted
+ekwinder@STARGATE:~$ curl -X GET http://127.0.0.1:9000/api/movie/ -u ekwinder:123
+[{"id":1,"title":"Titanic","desc":"Sadly, it sunk.","rating":4},{"id":2,"title":"Clash of the Titans","desc":"Gods have mercy!","rating":3},{"id":3,"title":"Good Will Hunting","desc":"Will is a good hunter.","rating":4},{"id":4,"title":"Crash","desc":"That was hard.","rating":3},{"id":7,"title":"old movie","desc":"new description","rating":5}]
+
+
+
+
+
+
+
+
+
+
+

@@ -26,7 +26,10 @@ def movie_list(request):
 @authentication_classes((SessionAuthentication, BasicAuthentication))
 @permission_classes((IsAdminUser,))
 def movie_add(request):
-	if request.method == 'POST':
+    """
+    add a movie
+    """
+    if request.method == 'POST':
 	    serializer = MovieSerializer(data=request.DATA)
 	    if serializer.is_valid():
 	        serializer.save()
@@ -41,7 +44,7 @@ def movie_add(request):
 @permission_classes((IsAdminUser,))
 def movie_detail(request, pk):
     """
-    Get, udpate, or delete a specific movie
+    Get, update, or delete a specific movie
     """
     try:
         movie = Movie.objects.get(pk=pk)
@@ -80,7 +83,7 @@ class MovieSearch(generics.ListAPIView):
 	def get_queryset(self):
 		"""
 		Optionally restricts the returned purchases to a given user,
-		by filtering against a `username` query parameter in the URL.
+		by filtering against a `title` query parameter in the URL.
 		"""
 		queryset = Movie.objects.all()
 		title = self.request.query_params.get('title', None)
