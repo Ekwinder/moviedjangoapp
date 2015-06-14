@@ -14,7 +14,7 @@ password -123
 
 The API can only be accessed by user authentication. 
 Add, Edit and Delete functions can only be accessed by Admin.
-Search function is based on query parameter and can be accessed by all authenticated users.
+Search function can be accessed by all authenticated users.
 
 Heroku link - ekwindersimpleapp.herokuapp.com/api/movie/
 
